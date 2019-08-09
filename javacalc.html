@@ -1,0 +1,479 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+
+    <script>
+        $(function () {
+            var nextBtn = $(".next"),
+                prevBtn = $(".prev");
+
+            nextBtn.on('click', function (e) {
+                var active = $(".active");
+                var next = active.next('.case');
+                if (next.length) {
+                    active.removeClass('active');
+                    next.addClass('active');
+                }
+            });
+            prevBtn.on('click', function (e) {
+                var active = $(".active");
+                var prev = active.prev('.case');
+                if (prev.length) {
+                    active.removeClass('active');
+                    prev.addClass('active');
+                }
+            });
+        });
+
+        function calc() {
+            var naam = document.getElementById('naam').value;
+            var leeftijd = document.getElementById('leeftijd').value;
+            var lengte = document.getElementById('lengte').value;
+            var gewicht = document.getElementById('gewicht').value;
+            var beweging = document.getElementById('beweging').value;
+            var beroep = document.getElementById('beroep').value;
+            document.getElementById('result_naam1').innerHTML = "Hoi " + naam + ", we hebben wat gegevens nodig:";
+            document.getElementById('result_naam').innerHTML = "Dit is wat je nodig hebt, " + naam;
+            document.getElementById('result_leeftijd').innerHTML = "Leeftijd: " + leeftijd;
+            document.getElementById('result_lengte').innerHTML = "Lengte: " + lengte;
+            document.getElementById('result_gewicht').innerHTML = "Gewicht: " + gewicht;
+            //document.getElementById('result_beweging').innerHTML = "Beweging: " + beweging;
+            //document.getElementById('result_beroep').innerHTML = "Beroep: " + beroep;
+            var radioValuegen = $("input[name='gender']:checked").val();
+            var radioValuetype = $("input[name='type']:checked").val();
+            var info_type = document.getElementById('info_type');
+            var info_type_a_man = "DIT IS DE INFO VOOR TYPE A MAN";
+            var info_type_b_man = "DIT IS DE INFO VOOR TYPE B MAN";
+            var info_type_c_man = "DIT IS DE INFO VOOR TYPE C MAN";
+            var info_type_a_vrouw = "DIT IS DE INFO VOOR TYPE A VROUW";
+            var info_type_b_vrouw = "DIT IS DE INFO VOOR TYPE B VROUW";
+            var info_type_c_vrouw = "DIT IS DE INFO VOOR TYPE C VROUW";
+
+            if (radioValuegen) {
+                //document.getElementById("result_gender").innerHTML = "Geslacht: " + radioValuegen;
+            }
+            if (radioValuetype) {
+                //document.getElementById("result_type").innerHTML = "Type lichaam: " + radioValuetype;
+            }
+            if (radioValuegen == 'man') {
+                var selected = document.getElementById('body_type_man');
+                var not_selected = document.getElementById('body_type_vrouw');
+                selected.classList.add("selected");
+                not_selected.classList.remove("selected");
+                info_type.classList.add("selected");
+            }
+            if (radioValuegen == 'vrouw') {
+                var selected = document.getElementById('body_type_vrouw');
+                var not_selected = document.getElementById('body_type_man');
+                selected.classList.add("selected");
+                not_selected.classList.remove("selected");
+                info_type.classList.add("selected");
+            }
+            if (radioValuegen == 'man' && radioValuetype == 'type_a_man') {
+                var selected = document.getElementById('type_a_man_label');
+                var not_selected_b = document.getElementById('type_b_man_label');
+                var not_selected_c = document.getElementById('type_c_man_label');
+                selected.classList.add("selected");
+                not_selected_b.classList.remove("selected");
+                not_selected_c.classList.remove("selected");
+                //document.getElementById('info_type').innerHTML = info_type_a_man;
+
+                var basaalman = (88.4 + 13.4 * gewicht) + (4.8 * lengte) - (5.68 * leeftijd);
+                var beroepbewegingman = +beweging + +beroep;
+                var behoefteman = Math.round(+beroepbewegingman * +basaalman);
+                var eiwitmana = Math.round((behoefteman / 100) * 30 / 4);
+                var vetmana = Math.round((behoefteman / 100) * 20 / 9);
+                var koolhydratenmana = Math.round((behoefteman / 100) * 50 / 4);
+
+                //document.getElementById('result_basaalman').innerHTML = "BMR: " + basaalman;
+                document.getElementById('result_eiwit').innerHTML = eiwitmana + " Eiwit (g)";
+                document.getElementById('result_vet').innerHTML = vetmana + " Vet (g)";
+                document.getElementById('result_koolhydraten').innerHTML = koolhydratenmana + " Koolhydraten (g)";
+            }
+            if (radioValuegen == 'man' && radioValuetype == 'type_b_man') {
+                var selected = document.getElementById('type_b_man_label');
+                var not_selected_c = document.getElementById('type_c_man_label');
+                var not_selected_a = document.getElementById('type_a_man_label');
+                selected.classList.add("selected");
+                not_selected_c.classList.remove("selected");
+                not_selected_a.classList.remove("selected");
+                //document.getElementById('info_type').innerHTML = info_type_b_man;
+
+                var basaalman = (88.4 + 13.4 * gewicht) + (4.8 * lengte) - (5.68 * leeftijd);
+                var beroepbewegingman = +beweging + +beroep;
+                var behoefteman = Math.round(+beroepbewegingman * +basaalman);
+                var eiwitmanb = Math.round((behoefteman / 100) * 30 / 4);
+                var vetmanb = Math.round((behoefteman / 100) * 30 / 9);
+                var koolhydratenmanb = Math.round((behoefteman / 100) * 40 / 4);
+                //document.getElementById('result_basaalman').innerHTML = "BMR: " + basaalman;
+                document.getElementById('result_eiwit').innerHTML = eiwitmanb + " Eiwit (g)";
+                document.getElementById('result_vet').innerHTML = vetmanb + " Vet (g)";
+                document.getElementById('result_koolhydraten').innerHTML = koolhydratenmanb + " Koolhydraten (g)";
+            }
+            if (radioValuegen == 'man' && radioValuetype == 'type_c_man') {
+                var selected = document.getElementById('type_c_man_label');
+                var not_selected_a = document.getElementById('type_a_man_label');
+                var not_selected_b = document.getElementById('type_b_man_label');
+                selected.classList.add("selected");
+                not_selected_a.classList.remove("selected");
+                not_selected_b.classList.remove("selected");
+                //document.getElementById('info_type').innerHTML = info_type_c_man;
+
+                var basaalman = (88.4 + 13.4 * gewicht) + (4.8 * lengte) - (5.68 * leeftijd);
+                var beroepbewegingman = +beweging + +beroep;
+                var behoefteman = Math.round(+beroepbewegingman * +basaalman);
+                var eiwitmanc = Math.round((behoefteman / 100) * 30 / 4);
+                var vetmanc = Math.round((behoefteman / 100) * 40 / 9);
+                var koolhydratenmanc = Math.round((behoefteman / 100) * 30 / 4);
+                //document.getElementById('result_basaalman').innerHTML = "BMR: " + basaalman;
+                document.getElementById('result_eiwit').innerHTML = eiwitmanc + " Eiwit (g)";
+                document.getElementById('result_vet').innerHTML = vetmanc + " Vet (g)";
+                document.getElementById('result_koolhydraten').innerHTML = koolhydratenmanc + " Koolhydraten (g)";
+            }
+            if (radioValuegen == 'vrouw' && radioValuetype == 'type_a_vrouw') {
+                var selected = document.getElementById('type_a_vrouw_label');
+                var not_selected_b = document.getElementById('type_b_vrouw_label');
+                var not_selected_c = document.getElementById('type_c_vrouw_label');
+                selected.classList.add("selected");
+                not_selected_b.classList.remove("selected");
+                not_selected_c.classList.remove("selected");
+                //document.getElementById('info_type').innerHTML = info_type_a_vrouw;
+
+                var basaalvrouw = (88.4 + 13.4 * gewicht) + (4.8 * lengte) - (5.68 * leeftijd);
+                var beroepbewegingvrouw = +beweging + +beroep;
+                var behoeftevrouw = Math.round(+beroepbewegingvrouw * +basaalvrouw);
+                var eiwitvrouwa = Math.round((behoeftevrouw / 100) * 30 / 4);
+                var vetvrouwa = Math.round((behoeftevrouw / 100) * 40 / 9);
+                var koolhydratenvrouwa = Math.round((behoeftevrouw / 100) * 30 / 4);
+                //document.getElementById('result_basaalvrouw').innerHTML = "BMR: " + basaalvrouw;
+                document.getElementById('result_eiwit').innerHTML = eiwitvrouwa + " Eiwit (g)";
+                document.getElementById('result_vet').innerHTML = vetvrouwa + " Vet (g)";
+                document.getElementById('result_koolhydraten').innerHTML = koolhydratenvrouwa + " Koolhydraten (g)";
+            }
+            if (radioValuegen == 'vrouw' && radioValuetype == 'type_b_vrouw') {
+                var selected = document.getElementById('type_b_vrouw_label');
+                var not_selected_c = document.getElementById('type_c_vrouw_label');
+                var not_selected_a = document.getElementById('type_a_vrouw_label');
+                selected.classList.add("selected");
+                not_selected_c.classList.remove("selected");
+                not_selected_a.classList.remove("selected");
+                //document.getElementById('info_type').innerHTML = info_type_b_vrouw;
+
+                var basaalvrouw = (88.4 + 13.4 * gewicht) + (4.8 * lengte) - (5.68 * leeftijd);
+                var beroepbewegingvrouw = +beweging + +beroep;
+                var behoeftevrouw = Math.round(+beroepbewegingvrouw * +basaalvrouw);
+                var eiwitvrouwb = Math.round((behoeftevrouw / 100) * 30 / 4);
+                var vetvrouwb = Math.round((behoeftevrouw / 100) * 40 / 9);
+                var koolhydratenvrouwb = Math.round((behoeftevrouw / 100) * 30 / 4);
+                //document.getElementById('result_basaalvrouw').innerHTML = "BMR: " + basaalvrouw;
+                document.getElementById('result_eiwit').innerHTML = eiwitvrouwb + " Eiwit (g)";
+                document.getElementById('result_vet').innerHTML = vetvrouwb + " Vet (g)";
+                document.getElementById('result_koolhydraten').innerHTML = koolhydratenvrouwb + " Koolhydraten (g)";
+            }
+            if (radioValuegen == 'vrouw' && radioValuetype == 'type_c_vrouw') {
+                var selected = document.getElementById('type_c_vrouw_label');
+                var not_selected_a = document.getElementById('type_a_vrouw_label');
+                var not_selected_b = document.getElementById('type_b_vrouw_label');
+                selected.classList.add("selected");
+                not_selected_a.classList.remove("selected");
+                not_selected_b.classList.remove("selected");
+                //document.getElementById('info_type').innerHTML = info_type_c_vrouw;
+
+                var basaalvrouw = (88.4 + 13.4 * gewicht) + (4.8 * lengte) - (5.68 * leeftijd);
+                var beroepbewegingvrouw = +beweging + +beroep;
+                var behoeftevrouw = Math.round(+beroepbewegingvrouw * +basaalvrouw);
+                var eiwitvrouwc = Math.round((behoeftevrouw / 100) * 30 / 4);
+                var vetvrouwc = Math.round((behoeftevrouw / 100) * 40 / 9);
+                var koolhydratenvrouwc = Math.round((behoeftevrouw / 100) * 30 / 4);
+                //document.getElementById('result_basaalvrouw').innerHTML = "BMR: " + basaalvrouw;
+                document.getElementById('result_eiwit').innerHTML = eiwitvrouwc + " Eiwit (g)";
+                document.getElementById('result_vet').innerHTML = vetvrouwc + " Vet (g)";
+                document.getElementById('result_koolhydraten').innerHTML = koolhydratenvrouwc + " Koolhydraten (g)";
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+<style>
+    #body_type_man.selected {
+        display: block;
+    }
+
+    #body_type_vrouw.selected {
+        display: block;
+    }
+
+    #body_type_vrouw {
+        display: none;
+    }
+
+    #body_type_man {
+        display: none;
+    }
+
+    .case.active {
+        display: block;
+    }
+
+    .case {
+        display: none;
+    }
+
+    #info_type {
+        display: none;
+    }
+
+    #info_type.selected {
+        display: block;
+        float: left;
+        padding: 20px 0 0 0;
+    }
+
+    .gender_keuze {
+        width: 100px;
+    }
+
+    label.selected img {
+        padding: 0px;
+        marin: 10px;
+        border: 2px solid #40bd37;
+        display: inline-block;
+        border-radius: 3px;
+    }
+
+    label {
+        cursor: pointer;
+    }
+
+    label input {
+        visibility: hidden;
+    }
+
+    label.radio input:checked + span {
+        border-color: #40bd37;
+    }
+
+    button.next {
+        background-color: #40bd37;
+        color: #fff;
+        font-family: Roboto, sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 12px 20px;
+        font-size: 0.76471em;
+    }
+
+    #button {
+        float: right;
+    }
+
+    button.prev {
+        background-color: #40bd37;
+        color: #fff;
+        font-family: Roboto, sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 12px 20px;
+        font-size: 0.76471em;
+    }
+
+    .basis_gegevens p {
+        float: left;
+        width: 175px;
+        margin: 20px 0 0 0;
+    }
+
+    .basis_gegevens input {
+        margin: 10px 15px;
+    }
+
+    .gender_keuze input {
+        float: left;
+        margin: 7px 6px 0 0;
+    }
+
+    .beweging_beroep select{
+        width: 200px;
+    }
+
+    .gender_radio {
+        float: left;
+        width: 120px;
+    }
+
+    .body_types {
+        float: left;
+        width: 100%;
+        text-align: center;
+    }
+    /* .tableresults{
+        *border-left: 2px solid #40bd37;
+         border-bottom: 2px solid #40bd37;
+         border-bottom-left-radius: 2px;
+     }
+     .tableresults:empty{
+         border: none;
+     }*/
+</style>
+<div id="wrapper">
+    <div class="case active">
+        <h3>Door onze gemakkelijke GoodFoodz rekentool weet jij straks precies wat jouw lichaam nodig heeft om het
+            gewenste resultaat te bereiken!</h3>
+        <div id="button">
+            <button type="button" class="next" id="">Start</button>
+        </div>
+    </div>
+    <div class="case">
+        <h3>Wat is je naam?</h3>
+        <div class="naam">
+            <input type="text" id="naam" placeholder="Naam" onkeyup="calc()"/><br>
+        </div>
+        <div id="button">
+            <button type="button" class="prev" id="">Terug</button>
+            <button type="button" class="next" id="">Volgende</button>
+        </div>
+    </div>
+    <div class="case">
+        <h3>
+            <div id="result_naam1">Hoi , we hebben wat gegevens nodig:</div>
+        </h3>
+        <div class="basis_gegevens">
+            <div class="leeftijd_input"><p>Vul hier je leeftijd in:</p><input type="text" id="leeftijd"
+                                                                              placeholder="Leeftijd" onkeyup="calc()"/>
+            </div>
+            <div class="lengte_input"><p>Vul hier je lengte in:</p><input type="text" id="lengte"
+                                                                          placeholder="Lengte in cm" onkeyup="calc()"/>
+            </div>
+            <div class="gewicht_input"><p>Vul hier je gewicht in:</p><input type="text" id="gewicht"
+                                                                            placeholder="Gewicht in kg"
+                                                                            onkeyup="calc()"/></div>
+        </div>
+        <div id="button">
+            <button type="button" class="prev" id="">Terug</button>
+            <button type="button" class="next" id="">Volgende</button>
+        </div>
+    </div>
+    <div class="case" onclick="calc()">
+        <h3>Bent u een man of een vrouw?</h3>
+        <div class="gender_keuzes">
+            <div class="gender_radio">
+                <div class="gender_keuze">
+                    <input type="radio" id="gender" name="gender" value="man"/>
+                    <p>Man</p>
+                </div>
+                <div class="gender_keuze">
+                    <input type="radio" id="gender" name="gender" value="vrouw"/>
+                    <p>Vrouw</p>
+                </div>
+            </div>
+            <div id="info_type">
+                <p>Kies hieronder welk lichaamstype het beste bij u past</p>
+            </div>
+        </div>
+        <div class="body_types">
+            <div id="body_type_man">
+                <label id="type_a_man_label">
+                    <input type="radio" name="type" value="type_a_man" class="type">
+                    <img style="width: 80px; height: auto; "
+                         src="https://cdn.shopify.com/s/files/1/0099/3053/9071/files/ecto_man.png">
+                </label>
+                <label id="type_b_man_label">
+                    <input type="radio" name="type" value="type_b_man" class="type">
+                    <img style="width: 80px; height: auto; "
+                         src="https://cdn.shopify.com/s/files/1/0099/3053/9071/files/meso_man.png">
+                </label>
+                <label id="type_c_man_label">
+                    <input type="radio" name="type" value="type_c_man" class="type">
+                    <img style="width: 80px; height: auto; "
+                         src="https://cdn.shopify.com/s/files/1/0099/3053/9071/files/endo_man.png">
+                </label>
+            </div>
+            <div id="body_type_vrouw">
+                <label id="type_a_vrouw_label">
+                    <input type="radio" name="type" value="type_a_vrouw" class="type">
+                    <img style="width: 80px; height: auto; "
+                         src="https://cdn.shopify.com/s/files/1/0099/3053/9071/files/ecto_vrouw.png">
+                </label>
+                <label id="type_b_vrouw_label">
+                    <input type="radio" name="type" value="type_b_vrouw" class="type">
+                    <img style="width: 80px; height: auto; "
+                         src="https://cdn.shopify.com/s/files/1/0099/3053/9071/files/meso_vrouw.png">
+                </label>
+                <label id="type_c_vrouw_label">
+                    <input type="radio" name="type" value="type_c_vrouw" class="type">
+                    <img style="width: 80px; height: auto; "
+                         src="https://cdn.shopify.com/s/files/1/0099/3053/9071/files/endo_vrouw.png">
+                </label>
+            </div>
+        </div>
+        <div id="button">
+            <button type="button" class="prev" id="">Terug</button>
+            <button type="button" class="next" id="">Volgende</button>
+        </div>
+    </div>
+    <div class="case">
+        <h3>Wat doe je in het dagelijkse leven?</h3>
+        <div class="beweging_beroep">
+            <div class="select_beweging">
+                <select id="beweging" onchange="calc()">
+                    <option value="" disabled="disabled" selected="selected">Beweging</option>
+                    <option value="0">Niet</option>
+                    <option value="0.2">Weinig</option>
+                    <option value="0.3">1-3 keer</option>
+                    <option value="0.5">3-5 keer</option>
+                    <option value="0.7">5-7 keer</option>
+                    <option value="0.8">Meer</option>
+                </select>
+            </div>
+            <div class="select_beroep">
+                <select id="beroep" onchange="calc()">
+                    <option value="" disabled="disabled" selected="selected">Beroep</option>
+                    <option value="1">Non-Actief</option>
+                    <option value="1.2">Licht-Actief</option>
+                    <option value="1.4">Middel-Actief</option>
+                    <option value="1.6">Zeer_actief</option>
+                </select>
+            </div>
+        </div>
+        <div id="button">
+            <button type="button" class="prev" id="">Terug</button>
+            <button type="button" class="next" id="">Volgende</button>
+        </div>
+    </div>
+    <div class="case">
+        <div id="results">
+            <div id="result_naam" class="tableresults"></div>
+            <div class="gebruikte_gegevens">
+                <div id="result_leeftijd" class="tableresults"></div>
+                <div id="result_lengte" class="tableresults"></div>
+                <div id="result_gewicht" class="tableresults"></div>
+            </div>
+            <div class="gegevens_berekend">
+                <!--<div id="result_beweging" class="tableresults"></div>
+                <div id="result_beroep" class="tableresults"></div>
+                <div id="result_basaalman" class="tableresults"></div>
+                <div id="result_behoefteman" class="tableresults"></div>
+                <div id="result_basaalvrouw" class="tableresults"></div>
+                <div id="result_behoeftevrouw" class="tableresults"></div>
+                <div id="result_gender" class="tableresults"></div>
+                <div id="result_type" class="tableresults"></div>-->
+                <div id="result_eiwit" class="tableresults">0 Eitwit (g)</div>
+                <div id="result_vet" class="tableresults">0 Vet (g)</div>
+                <div id="result_koolhydraten" class="tableresults">0 Koolhydraten (g)</div>
+            </div>
+        </div>
+            <div id="button">
+                <button type="button" class="prev" id="">Terug</button>
+            </div>
+    </div>
+</div>
+</body>
+</html>
